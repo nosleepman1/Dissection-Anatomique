@@ -10,7 +10,8 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/dissec
 const CORS_ORIGIN = (process.env.CORS_ORIGIN || "").split(",").filter(Boolean);
 
 const app = express();
-app.use(cors({ origin: CORS_ORIGIN.length > 0 ? CORS_ORIGIN : true }));
+//add also https://dissection-anatomique-admin.vercel.app, https://dissection-anatomique-client.vercel.app
+app.use(cors({ origin: [...CORS_ORIGIN, "https://dissection-anatomique-admin.vercel.app", "https://dissection-anatomique-client.vercel.app"].length > 0 ? [...CORS_ORIGIN, "https://dissection-anatomique-admin.vercel.app", "https://dissection-anatomique-client.vercel.app"] : true }));
 app.use(express.json());
 
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
